@@ -3,15 +3,19 @@ import chrome from 'selenium-webdriver/chrome.js';
 import fs from 'fs';
 import path from 'path';
 
+import chromedriver from 'chromedriver';
+
 export const BASE_URL =
   process.env.BASE_URL || 'http://127.0.0.1:5173/';
 
 export async function setupDriver(viewport = { width: 1920, height: 1080 }) {
   console.log("Creating driver...");
-  const serviceBuilder = new chrome.ServiceBuilder(path.resolve('node_modules', 'chromedriver', 'lib', 'chromedriver', 'chromedriver.exe'));
+  const serviceBuilder = new chrome.ServiceBuilder(chromedriver.path);
 
   let options = new chrome.Options();
-  //options.addArguments('--headless=new'); // Run headless by default for CI and full suite
+  if (process.env.CI) {
+    options.addArguments('--headless=new'); // Run headless by default for CI and full suite
+  }
   options.addArguments('--disable-gpu');
   options.addArguments(`--window-size=${viewport.width},${viewport.height}`);
   options.addArguments('--no-sandbox');
