@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test:security": "mocha security-tests/*.test.js --timeout 30000 --reporter ./excel-reporter.cjs",
+    "test:security": "node security-run-tests.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
