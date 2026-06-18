@@ -1,4 +1,6 @@
 import ExcelJS from 'exceljs';
+import fs from 'fs';
+import path from 'path';
 
 export async function generateSecurityReport(results) {
     const workbook = new ExcelJS.Workbook();
@@ -44,6 +46,13 @@ export async function generateSecurityReport(results) {
         }
     });
 
-    await workbook.xlsx.writeFile('SecurityTestReport.xlsx');
-    console.log('\nReport generated successfully: SecurityTestReport.xlsx');
+    const reportDir = 'reports';
+    const reportPath = path.join(reportDir, 'SecurityTestReport.xlsx');
+
+    if (!fs.existsSync(reportDir)) {
+        fs.mkdirSync(reportDir, { recursive: true });
+    }
+
+    await workbook.xlsx.writeFile(reportPath);
+    console.log('Report generated:', reportPath);
 }
