@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "test:security": "node security-run-tests.js",
+    "test:load": "mocha load-tests/*.test.js --timeout 60000 --reporter load-tests/excel-reporter.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
